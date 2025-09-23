@@ -20,36 +20,36 @@ const Header = () => {
   const isActive = (href) => location.pathname === href;
 
   return (
-    <header className="bg-white shadow-md border-b-2 border-verde-claro">
+    <header className="card-glass border-b border-white/30 backdrop-blur-xl sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
+          <Link to="/" className="flex items-center space-x-4 group">
             <img
               src={logoTransparent}
               alt="Verde Conecta Saber"
-              className="w-auto object-contain"
-              style={{ maxWidth: '160px', maxHeight: '64px', height: 'auto' }}
+              className="w-auto object-contain transform group-hover:scale-105 transition-transform duration-300"
+              style={{ maxWidth: '180px', maxHeight: '72px', height: 'auto' }}
             />
             <div className="hidden sm:block">
-              <h1 className="text-xl font-bold text-verde-folha">
-                Verde Conecta Saber
+              <h1 className="text-2xl font-bold">
+                <span className="text-gradient">Verde Conecta Saber</span>
               </h1>
-              <p className="text-xs text-gray-600">Educação Ambiental Sustentável</p>
+              <p className="text-sm text-gray-600 font-medium">Educação Ambiental Sustentável</p>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex space-x-1">
+          <nav className="hidden lg:flex space-x-2">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
                 className={`
-                  px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300
                   ${isActive(item.href)
-                    ? 'bg-verde-folha text-white'
-                    : 'text-gray-700 hover:bg-verde-claro hover:text-white'
+                    ? 'bg-verde-folha text-white shadow-verde transform scale-105'
+                    : 'text-gray-700 hover:bg-verde-claro/20 hover:text-verde-folha'
                   }
                 `}
               >
@@ -59,15 +59,15 @@ const Header = () => {
           </nav>
 
           {/* User Points */}
-          <div className="hidden sm:flex items-center space-x-3">
-            <Badge variant="ods" size="md">
+          <div className="hidden sm:flex items-center space-x-4">
+            <Badge variant="ods" size="md" className="animate-glow">
               🏆 120 pontos
             </Badge>
           </div>
 
           {/* Mobile menu button */}
           <button
-            className="lg:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100"
+            className="lg:hidden p-3 rounded-xl text-gray-700 hover:bg-verde-claro/20 transition-colors duration-300"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

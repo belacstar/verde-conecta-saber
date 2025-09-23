@@ -1,16 +1,18 @@
 import React from 'react';
 
-const Card = ({ 
-  children, 
-  className = '', 
+const Card = ({
+  children,
+  className = '',
   onClick,
-  hover = true 
+  hover = true,
+  glass = true
 }) => {
   return (
-    <div 
+    <div
       className={`
-        bg-white rounded-lg shadow-md border border-gray-200 p-4
-        ${hover ? 'hover:shadow-lg hover:scale-105 transition-all duration-300' : ''}
+        ${glass ? 'card-glass' : 'bg-white'} 
+        rounded-2xl p-6
+        ${hover ? 'card-hover' : ''}
         ${onClick ? 'cursor-pointer' : ''}
         ${className}
       `}

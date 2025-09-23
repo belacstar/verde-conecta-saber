@@ -1,10 +1,8 @@
 import React from 'react';
-import Header from './Header';
 
 const Layout = ({ children }) => {
   return (
-    <div className="min-h-screen bg-cinza-claro">
-      <Header />
+    <div className="min-h-screen">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {children}
       </main>
@@ -14,7 +12,7 @@ const Layout = ({ children }) => {
             <div>
               <h3 className="text-lg font-semibold mb-4">Verde Conecta Saber</h3>
               <p className="text-verde-claro">
-                Educação ambiental sustentável para escolas, 
+                Educação ambiental sustentável para escolas,
                 promovendo consciência ecológica e práticas sustentáveis.
               </p>
             </div>
