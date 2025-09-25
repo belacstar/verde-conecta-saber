@@ -153,21 +153,25 @@
 .memory-grid {
   perspective: 1000px;
 }
+
 .memory-card {
   position: relative;
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
 }
+
 .card-inner {
   position: absolute;
   inset: 0;
   transition: transform 0.6s;
   transform-style: preserve-3d;
 }
+
 .card-flipped .card-inner {
   transform: rotateY(180deg);
 }
+
 .card-front,
 .card-back {
   position: absolute;
@@ -177,14 +181,17 @@
   border-radius: 0.5rem;
   overflow: hidden;
 }
+
 .card-front {
   transform: rotateY(180deg);
 }
+
 .card-back {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .memory-grid {
   perspective: 1000px;
 }
@@ -195,7 +202,7 @@
   position: absolute;
   inset: 0;
   transform-style: preserve-3d;
-  transition: transform 500ms cubic-bezier(.2,.9,.2,1), box-shadow 250ms ease;
+  transition: transform 500ms cubic-bezier(.2, .9, .2, 1), box-shadow 250ms ease;
 }
 
 .card-front,
@@ -216,8 +223,8 @@
 }
 
 /* Ensure the visible faces don't show borders or outlines */
-.card-front > div,
-.card-back > div {
+.card-front>div,
+.card-back>div {
   border: none !important;
   box-shadow: none !important;
   background-clip: padding-box;
@@ -229,13 +236,13 @@
 
 /* no-op placeholders removed to satisfy linter */
 
-.card-inner > .card-front > div,
-.card-inner > .card-back > div {
+.card-inner>.card-front>div,
+.card-inner>.card-back>div {
   transition: box-shadow 250ms ease, transform 250ms ease, opacity 200ms ease;
 }
 
-.card-inner:hover > .card-front > div,
-.card-inner:hover > .card-back > div {
+.card-inner:hover>.card-front>div,
+.card-inner:hover>.card-back>div {
   transform: translateY(-4px);
 }
 
@@ -245,9 +252,21 @@
 }
 
 @keyframes matchedPop {
-  0% { transform: scale(1); box-shadow: 0 6px 14px rgba(0,0,0,0.08); }
-  50% { transform: scale(1.03); box-shadow: 0 10px 24px rgba(34,197,94,0.15); }
-  100% { transform: scale(1); box-shadow: 0 6px 14px rgba(0,0,0,0.06); opacity: 0.95; }
+  0% {
+    transform: scale(1);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  }
+
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 10px 24px rgba(34, 197, 94, 0.15);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+    opacity: 0.95;
+  }
 }
 
 /* improve responsiveness: the grid utility will be set in JSX, but ensure images keep aspect */
@@ -268,7 +287,7 @@
   max-width: 85%;
   max-height: 85%;
   opacity: 0.98;
-  transition: transform 280ms cubic-bezier(.2,.9,.2,1), opacity 220ms ease;
+  transition: transform 280ms cubic-bezier(.2, .9, .2, 1), opacity 220ms ease;
   border: none;
   border-radius: 0.5rem;
   background: transparent;
@@ -281,8 +300,8 @@
 }
 
 /* add small padding inside card faces so image doesn't touch borders */
-.card-front > div,
-.card-back > div {
+.card-front>div,
+.card-back>div {
   padding: 6px;
 }
 
