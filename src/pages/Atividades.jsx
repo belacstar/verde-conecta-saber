@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import Header from '../components/Header';
 import Card from '../components/Card';
@@ -122,7 +123,7 @@ const Atividades = () => {
             descricao: "Combine alimentos com seu destino correto",
             icone: "🧩",
             cor: "amarelo-sol",
-            disponivel: false
+            disponivel: true
         },
         {
             id: 2,
@@ -133,6 +134,8 @@ const Atividades = () => {
             disponivel: false
         }
     ];
+
+    const navigate = useNavigate();
 
     const handleStartQuiz = (quiz) => {
         setSelectedQuiz(quiz);
@@ -186,7 +189,6 @@ const Atividades = () => {
                 {/* Hero Section */}
                 <section className="bg-gradient-to-r from-amarelo-sol to-verde-claro rounded-2xl text-white py-12 px-8 mb-8">
                     <div className="max-w-4xl mx-auto text-center">
-                        <div className="text-6xl mb-4">🎮</div>
                         <h1 className="text-3xl md:text-5xl font-bold mb-4">
                             Atividades & Jogos
                         </h1>
@@ -237,15 +239,21 @@ const Atividades = () => {
                                 <div className="text-4xl mb-3">{jogo.icone}</div>
                                 <h3 className="font-bold text-verde-folha mb-2">{jogo.titulo}</h3>
                                 <p className="text-gray-600 text-sm mb-4">{jogo.descricao}</p>
-                                <button
-                                    disabled={!jogo.disponivel}
-                                    className={`w-full py-2 px-4 rounded-lg transition-opacity ${jogo.disponivel
-                                        ? `bg-${jogo.cor} text-white hover:opacity-90`
-                                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                                        }`}
-                                >
-                                    {jogo.disponivel ? '🎮 Jogar' : '🔒 Em Breve'}
-                                </button>
+                                {jogo.disponivel ? (
+                                    <button
+                                        onClick={() => navigate('/jogo-memoria')}
+                                        className={`w-full py-2 px-4 rounded-lg transition-opacity bg-${jogo.cor} text-white hover:opacity-90`}
+                                    >
+                                        🎮 Jogar
+                                    </button>
+                                ) : (
+                                    <button
+                                        disabled
+                                        className="w-full py-2 px-4 rounded-lg bg-gray-300 text-gray-500 cursor-not-allowed"
+                                    >
+                                        🔒 Em Breve
+                                    </button>
+                                )}
                             </Card>
                         ))}
                     </div>

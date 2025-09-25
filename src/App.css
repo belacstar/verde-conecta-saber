@@ -149,6 +149,144 @@
   }
 }
 
+/* Memory game flip 3D styles */
+.memory-grid {
+  perspective: 1000px;
+}
+.memory-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+.card-inner {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+.card-flipped .card-inner {
+  transform: rotateY(180deg);
+}
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.card-front {
+  transform: rotateY(180deg);
+}
+.card-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.memory-grid {
+  perspective: 1000px;
+}
+
+/* Memory game card 3D flip styles and polish */
+
+.card-inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 500ms cubic-bezier(.2,.9,.2,1), box-shadow 250ms ease;
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: rotateY(0deg);
+}
+
+.card-back {
+  transform: rotateY(0deg);
+}
+
+.card-front {
+  transform: rotateY(180deg);
+}
+
+/* Ensure the visible faces don't show borders or outlines */
+.card-front > div,
+.card-back > div {
+  border: none !important;
+  box-shadow: none !important;
+  background-clip: padding-box;
+}
+
+.card-flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* no-op placeholders removed to satisfy linter */
+
+.card-inner > .card-front > div,
+.card-inner > .card-back > div {
+  transition: box-shadow 250ms ease, transform 250ms ease, opacity 200ms ease;
+}
+
+.card-inner:hover > .card-front > div,
+.card-inner:hover > .card-back > div {
+  transform: translateY(-4px);
+}
+
+/* matched state: subtle scale + glow then fade slightly */
+.card-matched {
+  animation: matchedPop 600ms ease forwards;
+}
+
+@keyframes matchedPop {
+  0% { transform: scale(1); box-shadow: 0 6px 14px rgba(0,0,0,0.08); }
+  50% { transform: scale(1.03); box-shadow: 0 10px 24px rgba(34,197,94,0.15); }
+  100% { transform: scale(1); box-shadow: 0 6px 14px rgba(0,0,0,0.06); opacity: 0.95; }
+}
+
+/* improve responsiveness: the grid utility will be set in JSX, but ensure images keep aspect */
+
+.memory-card-img {
+  /* default (front) image sizing */
+  max-width: 70%;
+  max-height: 70%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border: none;
+  display: block;
+}
+
+/* Back image (inter.png) should be more visible and have a subtle animation */
+.card-back .memory-card-img {
+  max-width: 85%;
+  max-height: 85%;
+  opacity: 0.98;
+  transition: transform 280ms cubic-bezier(.2,.9,.2,1), opacity 220ms ease;
+  border: none;
+  border-radius: 0.5rem;
+  background: transparent;
+  box-shadow: none;
+}
+
+.card-flipped .card-back .memory-card-img {
+  transform: scale(1.04);
+  opacity: 1;
+}
+
+/* add small padding inside card faces so image doesn't touch borders */
+.card-front > div,
+.card-back > div {
+  padding: 6px;
+}
+
+
 /* Navigation Links Custom Class */
 .nav-links {
   display: flex;
