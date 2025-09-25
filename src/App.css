@@ -79,3 +79,111 @@
 .bg-cinza-claro {
   background-color: #F5F5F5;
 }
+
+/* Carrossel: indicadores (bolinhas) e setas */
+.carousel-indicator {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.9);
+  transition: transform 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.carousel-indicator.active {
+  background: #2E7D32;
+  /* verde-folha */
+  transform: scale(1.15);
+  box-shadow: 0 6px 18px rgba(46, 125, 50, 0.28);
+}
+
+.carousel-arrow-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.38);
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.carousel-arrow-btn:hover {
+  background: rgba(0, 0, 0, 0.6);
+  transform: translateY(-1px);
+}
+
+.carousel-arrow-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.22);
+}
+
+/* Forçar maior visibilidade se outras regras sobrescreverem */
+.carousel-indicator {
+  display: inline-block !important;
+  width: 1rem !important;
+  height: 1rem !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 9999px !important;
+}
+
+.carousel-indicator.active {
+  background: #2E7D32 !important;
+  transform: scale(1.15) !important;
+  box-shadow: 0 8px 20px rgba(46, 125, 50, 0.28) !important;
+}
+
+.carousel-arrow-btn {
+  z-index: 9999 !important;
+}
+
+@media (max-width: 768px) {
+  .carousel-indicator {
+    width: 0.9rem !important;
+    height: 0.9rem !important;
+  }
+
+  .carousel-arrow-btn {
+    width: 2.1rem !important;
+    height: 2.1rem !important;
+  }
+}
+
+/* Navigation Links Custom Class */
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-link {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: #16a34a;
+  background-color: #f9fafb;
+}
+
+.nav-link.active {
+  background-color: #16a34a;
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link.inactive {
+  color: #374151;
+}
+
+@media (min-width: 1024px) {
+  .nav-link {
+    padding: 0.5rem 1.25rem;
+    font-size: 1rem;
+  }
+}

@@ -4,24 +4,17 @@ import Layout from '../components/Layout';
 import Header from '../components/Header';
 import Card from '../components/Card';
 import Badge from '../components/Badge';
+import hero1 from '../assets/hero/hero1.jpg';
+import hero2 from '../assets/hero/hero2.jpg';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Carrossel de imagens da hero direita
-  const heroImages = [
-    '/hero2.jpg',
-    '/hero1.jpg'
-  ];
+  // Carrossel de imagens da hero
+  const heroImages = [hero1, hero2];
 
-  // Auto-play do carrossel
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-    }, 4000); // Troca a cada 4 segundos
 
-    return () => clearInterval(interval);
-  }, [heroImages.length]);
+  // Carrossel estático: sem autoplay, navegação manual
 
   const temas = [
     {
@@ -66,20 +59,57 @@ const Home = () => {
       <Header />
 
       {/* Hero Section - Full Width */}
-      <section className="relative overflow-hidden min-h-[70vh] md:min-h-[80vh] w-full">
+      <section className="relative overflow-hidden min-h-[65vh] md:min-h-[70vh] w-full bg-gray-200">
         {/* Carrossel de Imagens - Full Width */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0" style={{ position: 'relative' }}>
           <div
-            className="flex transition-transform duration-1000 ease-in-out h-full"
+            className="flex transition-transform duration-[600ms] ease-in-out h-full"
             style={{ transform: `translateX(-${currentSlide * 100}%)` }}
           >
             {heroImages.map((image, index) => (
-              <div
-                key={index}
-                className="relative bg-cover bg-center bg-no-repeat flex-shrink-0 w-full h-full"
-                style={{ backgroundImage: `url(${image})` }}
-              >
-                <div className="absolute inset-0 bg-verde-folha/60"></div>
+              <div key={index} className="relative flex-shrink-0 w-full h-full min-h-[65vh]">
+                <img
+                  src={image}
+                  alt={`Hero ${index + 1}`}
+                  className="w-full h-full object-cover block"
+                  onError={(e) => { console.error('Erro ao carregar imagem:', image); e.target.style.opacity = 0.5; }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-verde-folha/70 via-verde-folha/50 to-transparent"></div>
+                {/* overlay específico para o primeiro slide */}
+                {index === 0 && (
+                  <div style={{ position: 'absolute', left: '4%', top: '8%', zIndex: 45, display: 'grid', gap: '12px', gridTemplateColumns: '1fr', maxWidth: '48%', minWidth: '260px' }}>
+                    {/* Title card (now at top-left) */}
+                    <div className="rounded-xl" style={{ overflow: 'hidden', transform: 'translateY(0)', transition: 'transform 300ms ease' }}>
+                      <div style={{ padding: '12px 16px', background: 'linear-gradient(90deg, rgba(255,255,255,0.92), rgba(250,250,250,0.86))', borderRadius: '12px', boxShadow: '0 12px 36px rgba(0,0,0,0.24)', borderLeft: '6px solid rgba(27,94,32,0.9)' }}>
+                        <h2 className="m-0" style={{ color: '#1B5E20', fontSize: '20px', fontWeight: 800, letterSpacing: '-0.2px', textShadow: '0 3px 8px rgba(27,94,32,0.08)' }}>Verde Conecta Saber</h2>
+                      </div>
+                    </div>
+
+                    {/* Subtitle card */}
+                    <div className="rounded-xl" style={{ overflow: 'hidden' }}>
+                      <div style={{ padding: '12px 16px', background: 'linear-gradient(180deg, rgba(255,255,255,0.96), rgba(250,250,250,0.92))', borderRadius: '12px', boxShadow: '0 6px 18px rgba(0,0,0,0.12)' }}>
+                        <h3 className="text-lg lg:text-xl font-semibold text-gray-800 m-0">Aprenda, plante e colha sustentabilidade na sua escola.</h3>
+                      </div>
+                    </div>
+
+                    {/* Content + CTA card */}
+                    <div className="rounded-xl" style={{ overflow: 'hidden' }}>
+                      <div style={{ padding: '14px 18px', background: 'linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,245,245,0.95))', borderRadius: '12px', boxShadow: '0 10px 30px rgba(0,0,0,0.18)' }}>
+                        <div className="text-sm lg:text-base text-gray-700" style={{ lineHeight: 1.6 }}>
+                          <p style={{ margin: 0 }}>A natureza é nossa casa comum, e cuidar dela é uma missão de todos.</p>
+                          <p style={{ marginTop: '8px' }}>Na escola, aprender sobre meio ambiente significa entender como nossas escolhas do dia a dia afetam o planeta.</p>
+                        </div>
+
+                        <div style={{ marginTop: '12px' }}>
+                          <Link to="/educacao-ambiental" className="inline-block px-4 py-2 rounded-lg font-semibold text-white" style={{ background: 'linear-gradient(90deg,#2E7D32,#66BB6A)', boxShadow: '0 8px 22px rgba(46,125,50,0.24)' }}>
+                            Ir para Educação Ambiental →
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {/* (debug removido) */}
               </div>
             ))}
           </div>
@@ -93,6 +123,9 @@ const Home = () => {
               <p className="text-xl lg:text-3xl mb-8 font-semibold drop-shadow-md">
                 Educação ambiental sustentável para escolas
               </p>
+
+              {/* frase especial removida daqui e colocada dentro do primeiro slide para garantir visibilidade */}
+
               <p className="text-base lg:text-xl leading-relaxed drop-shadow-sm opacity-95 mb-12 max-w-3xl mx-auto">
                 Aprenda sobre sustentabilidade, gestão de resíduos orgânicos e agricultura sustentável
                 através de trilhas educativas, jogos interativos e desafios práticos alinhados aos ODS.
@@ -115,38 +148,109 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Indicadores do Carrossel */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-            <div className="flex space-x-3">
-              {heroImages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`w-4 h-4 rounded-full transition-all duration-300 ${currentSlide === index
-                    ? 'bg-white scale-110'
-                    : 'bg-white/50 hover:bg-white/80'
-                    }`}
-                />
-              ))}
-            </div>
+          {/* Indicadores do Carrossel (bolinhas) */}
+          <div
+            className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-50"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '16px',
+              pointerEvents: 'auto'
+            }}
+          >
+            {heroImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                aria-label={`Ir para slide ${index + 1}`}
+                style={{
+                  width: '16px',
+                  height: '16px',
+                  borderRadius: '50%',
+                  border: '2px solid white',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  backgroundColor: currentSlide === index ? '#2E7D32' : 'rgba(255,255,255,0.8)',
+                  boxShadow: currentSlide === index ? '0 4px 16px rgba(46,125,50,0.5)' : '0 2px 8px rgba(0,0,0,0.2)',
+                  transform: currentSlide === index ? 'scale(1.3)' : 'scale(1)'
+                }}
+              />
+            ))}
           </div>
 
-          {/* Botões de Navegação */}
+          {/* Setas de Navegação */}
           <button
             onClick={() => setCurrentSlide((prev) => (prev - 1 + heroImages.length) % heroImages.length)}
-            className="absolute left-6 top-1/2 transform -translate-y-1/2 z-20 bg-black/20 hover:bg-black/40 text-white p-3 rounded-full transition-all duration-300"
+            style={{
+              position: 'absolute',
+              left: '24px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              zIndex: 60,
+              width: '56px',
+              height: '56px',
+              borderRadius: '50%',
+              border: 'none',
+              backgroundColor: 'rgba(0,0,0,0.6)',
+              color: 'white',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '24px',
+              fontWeight: 'bold',
+              transition: 'all 0.3s ease',
+              pointerEvents: 'auto',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = 'rgba(0,0,0,0.8)';
+              e.target.style.transform = 'translateY(-50%) scale(1.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = 'rgba(0,0,0,0.6)';
+              e.target.style.transform = 'translateY(-50%) scale(1)';
+            }}
+            aria-label="Anterior"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
+            &#8249;
           </button>
           <button
             onClick={() => setCurrentSlide((prev) => (prev + 1) % heroImages.length)}
-            className="absolute right-6 top-1/2 transform -translate-y-1/2 z-20 bg-black/20 hover:bg-black/40 text-white p-3 rounded-full transition-all duration-300"
+            style={{
+              position: 'absolute',
+              right: '24px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              zIndex: 60,
+              width: '56px',
+              height: '56px',
+              borderRadius: '50%',
+              border: 'none',
+              backgroundColor: 'rgba(0,0,0,0.6)',
+              color: 'white',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '24px',
+              fontWeight: 'bold',
+              transition: 'all 0.3s ease',
+              pointerEvents: 'auto',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = 'rgba(0,0,0,0.8)';
+              e.target.style.transform = 'translateY(-50%) scale(1.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = 'rgba(0,0,0,0.6)';
+              e.target.style.transform = 'translateY(-50%) scale(1)';
+            }}
+            aria-label="Próximo"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
+            &#8250;
           </button>
         </div>
       </section>
